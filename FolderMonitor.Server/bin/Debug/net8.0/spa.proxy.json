@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:5173",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\user\\Desktop\\ProgressProject\\FolderMonitor\\FolderMonitor.Server\\..\\foldermonitor.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}
