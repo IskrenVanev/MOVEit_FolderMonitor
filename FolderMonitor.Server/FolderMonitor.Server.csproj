@@ -22,4 +22,8 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Monitored_Folder\" />
+  </ItemGroup>
+
 </Project>

@@ -33,3 +33,4 @@ C:\Users\user\Desktop\ProgressProject\FolderMonitor\FolderMonitor.Server\obj\Deb
 C:\Users\user\Desktop\ProgressProject\FolderMonitor\FolderMonitor.Server\obj\Debug\net8.0\FolderMonitor.Server.pdb
 C:\Users\user\Desktop\ProgressProject\FolderMonitor\FolderMonitor.Server\obj\Debug\net8.0\FolderMonitor.Server.genruntimeconfig.cache
 C:\Users\user\Desktop\ProgressProject\FolderMonitor\FolderMonitor.Server\obj\Debug\net8.0\ref\FolderMonitor.Server.dll
+C:\Users\user\Desktop\ProgressProject\FolderMonitor\FolderMonitor.Server\obj\Debug\net8.0\FolderMonitor.Server.sourcelink.json

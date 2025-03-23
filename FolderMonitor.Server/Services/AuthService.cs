@@ -1,5 +1,6 @@
 ﻿using FolderMonitor.Server.DTO;
 using FolderMonitor.Server.Services.IService;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -11,6 +12,7 @@ namespace FolderMonitor.Server.Services
     {
         private readonly HttpClient _httpClient;
 
+
         public AuthService(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -18,7 +20,6 @@ namespace FolderMonitor.Server.Services
 
         public async Task<string> GetAccessTokenAsync(string username, string password)
         {
-            // Prepare the data to send in the x-www-form-urlencoded format
             var formData = new Dictionary<string, string>
             {
                 { "grant_type", "password" },
@@ -26,13 +27,9 @@ namespace FolderMonitor.Server.Services
                 { "password", password }
             };
 
-            // Content for application/x-www-form-urlencoded
             var content = new FormUrlEncodedContent(formData);
-            // Set the headers
             content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-
-            // Set the Accept header to application/json (response format)
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -40,13 +37,43 @@ namespace FolderMonitor.Server.Services
 
             if (!response.IsSuccessStatusCode)
             {
-                // Log the error or handle the failed response
-                return null; // Could be Unauthorized or another error
+                return null;
             }
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            return responseBody;  // Return the JSON body with the token
+            return responseBody; 
         }
+
+        public async Task<string> GetUserInfoAsync(string token)
+        {
+            string curlCommand = $"curl -k -H \"Authorization: Bearer {token}\" \"https://testserver.moveitcloud.com/api/v1/users/self\"";
+
+            ProcessStartInfo processStartInfo = new ProcessStartInfo()
+            {
+                FileName = "curl",
+                Arguments = curlCommand,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            try
+            {
+                using (Process process = Process.Start(processStartInfo))
+                {
+                    using (StreamReader reader = process.StandardOutput)
+                    {
+                        string result = await reader.ReadToEndAsync();
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"An error occurred while executing the curl command: {ex.Message}";
+            }
+        }
+
     }
 }
